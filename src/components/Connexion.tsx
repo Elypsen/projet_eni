@@ -11,11 +11,15 @@ const Connexion = () =>  {
     
     const handleSubmit = async(e : React.MouseEvent) => {
         e.preventDefault();
-        const token = await auth(email, password).catch(err=>{setError(err)});
+        localStorage.clear();
+        await auth(email, password)
+        .then((res)=> {
+            localStorage.setItem('user', res)
+            navigate('/game');
 
-        localStorage.setItem('user', token)
+        })
+        .catch(err=>{setError(err)});
   
-        navigate('/game');
     }
 
     return(

@@ -74,7 +74,7 @@ export const checkAttempt = async (num: string,token: string) => {
 export const getRanks = async () => {
   try {
     const ranks = await api.get("/rank");
-    console.log(ranks);
+    return ranks.data;
     return ranks;
   } catch (err) {
     console.log("getRanks : ", getErrorMessage(err));

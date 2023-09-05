@@ -18,7 +18,6 @@ export const auth = async (email: string, password:string) => {
     const jwt = await api.post("/authentication_token", {email, password});
     return jwt.data.access_token;
   } catch (err) {
-    console.log("auth :", getErrorMessage(err));
     if(err instanceof AxiosError){
         throw err.response?.data ? err.response?.data.message : null;
     }
@@ -62,12 +61,13 @@ export const createTeam = async (team: Team) => {
     console.log("getTeams : ", getErrorMessage(err));
   }
 };
-export const checkAttempt = async (num: number) => {
+export const checkAttempt = async (num: string,token: string) => {
   try {
-    const result = await api.post("/game", num);
-    console.log(result);
+    const result = await api.post("/game", {attempt:num}, {headers:{ 'Authorization' : `Bearer ${token}`}} );
+    return result.data;
   } catch (err) {
     console.log("checkAttempt : ", getErrorMessage(err));
+    throw err instanceof AxiosError ? err.response?.data : null;
   }
 };
 

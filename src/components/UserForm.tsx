@@ -13,7 +13,6 @@ const UserForm = () => {
     const handleSubmit = async(e:React.MouseEvent) => {
         e.preventDefault();
         const user:User = {email:email, nickname:nickname,password:password};
-        (console.log(user));
         password == passwordConfirmation ? 
         await createUser(user,passwordConfirmation)
         .then(() => navigate('/'))

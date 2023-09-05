@@ -1,16 +1,21 @@
 import {useState} from 'react';
 import { auth } from '../services/api.service';
-import { Link } from 'react-router-dom';
-import jwt from 'jwt-decode';
+import { Link, useNavigate } from 'react-router-dom';
+
 const Connexion = () =>  {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState("");
+
+    const navigate = useNavigate();
+    
     const handleSubmit = async(e : React.MouseEvent) => {
         e.preventDefault();
         const token = await auth(email, password).catch(err=>{setError(err)});
-        const user = jwt(token);
-        console.log(user,token);
+
+        localStorage.setItem('user', token)
+  
+        navigate('/game');
     }
 
     return(

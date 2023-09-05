@@ -1,7 +1,7 @@
 export default interface User{
-    _id?: string,
+    id?: string,
     email: string,
     nickname:string,
-    password:string,
+    password?:string,
 
 }

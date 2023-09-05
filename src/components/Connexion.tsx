@@ -1,12 +1,16 @@
 import {useState} from 'react';
-
+import { auth } from '../services/api.service';
+import { Link } from 'react-router-dom';
+import jwt from 'jwt-decode';
 const Connexion = () =>  {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-
-    const handleSubmit = (e : React.MouseEvent) => {
+    const [error, setError] = useState("");
+    const handleSubmit = async(e : React.MouseEvent) => {
         e.preventDefault();
-        
+        const token = await auth(email, password).catch(err=>{setError(err)});
+        const user = jwt(token);
+        console.log(user,token);
     }
 
     return(
@@ -22,6 +26,9 @@ const Connexion = () =>  {
                 </div>
                 <input type="submit" value="Connexion" onClick={handleSubmit} />
             </form>
+            {<p style={{color:"red"}}>{error}</p>}
+            <br/>
+            <Link to='/create'>No Account Yet?</Link>
         </>
     )
 

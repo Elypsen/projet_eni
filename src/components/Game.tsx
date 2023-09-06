@@ -8,7 +8,7 @@ const Game = () => {
   const [number, setNumber] = useState("");
   const [color, setColor] = useState("red");
   const [message, setMessage] = useState("");
-
+  const [right, setRight] = useState("43vw");
   const token = localStorage.getItem("user") || "";
 
   const user: User = jwt(token);
@@ -19,11 +19,14 @@ const Game = () => {
       .then((res) => {
         if (res.resultText.substring(0, 1) == "B") {
           setColor("green");
+          setMessage(res.resultText + ", Vous pouvez maintenant soit consulter les rankings, soit continuer de jouer directement depuis cette page.");
+          setRight("10vw");
         } else {
           setColor("red");
+          setMessage(res.resultText);
+          setRight("43vw");
         }
         setNumber("");
-        setMessage(res.resultText);
       })
       .catch((err) => console.log(err.resultText));
   };
@@ -48,7 +51,7 @@ const Game = () => {
         </div>
         <input className="submit" type="submit" value="GO ! " onClick={handleSubmit} />
       </form>
-      <h2 style={{ color: color, position:"fixed", right: "43vw"}}>{message}</h2>
+      <h2 style={{ color: color, position:"fixed", right: right }}>{message}</h2>
     </>
   );
 };

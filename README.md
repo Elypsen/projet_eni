@@ -1,6 +1,7 @@
 # React + TypeScript + Vite
 
-- Needs the backend from : 
+- Needs the backend from : https://github.com/Elypsen/backend_eni/
+
 - npm i after pulling or cloning. Nothing more.
 
 - This project has been created for practice purpose, it allows a user to :

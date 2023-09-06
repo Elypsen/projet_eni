@@ -47,9 +47,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -66,4 +68,28 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+#navbar{
+  position:fixed;
+  min-width: 100vw;
+  background-color: aqua;
+  min-height:10vh;
+  left:0;
+  top:0;
+  border-radius: 0 0 15px 15px;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.navbar{
+  color: white;
+  margin: 12px;
+  transition: all 100ms ease;
+}
+.navbar:hover{
+  color:darkmagenta;
+  transform: scale(1.2) perspective(1px)
 }

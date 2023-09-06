@@ -2,7 +2,7 @@ import { useState } from "react";
 import { checkAttempt } from "../services/api.service";
 import jwt from "jwt-decode";
 import User from "../interfaces/user";
-import { Link } from "react-router-dom";
+
 
 const Game = () => {
   const [number, setNumber] = useState("");
@@ -12,7 +12,7 @@ const Game = () => {
   const token = localStorage.getItem("user") || "";
 
   const user: User = jwt(token);
-
+  const nickname = user.nickname.substring(0,1).toUpperCase() + user.nickname.substring(1)
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     await checkAttempt(number, token)
@@ -30,10 +30,10 @@ const Game = () => {
 
   return (
     <>
-      <h1 style={{ color: "aqua" }}>BONJOUR {user.nickname}</h1>
+      <h1>Welcome {nickname}</h1>
       <form>
         <div>
-          <label htmlFor="number">
+          <label htmlFor="number" className="gameLabel">
             Enter a number to find the hidden one :{" "}
           </label>
           <input
@@ -46,10 +46,9 @@ const Game = () => {
             }}
           />
         </div>
-        <input type="submit" value="GO ! " onClick={handleSubmit} />
+        <input className="submit" type="submit" value="GO ! " onClick={handleSubmit} />
       </form>
-      <Link to="/rank">See Rankings</Link>
-      <h2 style={{ color: color }}>{message}</h2>
+      <h2 style={{ color: color, position:"fixed", right: "43vw"}}>{message}</h2>
     </>
   );
 };

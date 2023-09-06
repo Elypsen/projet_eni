@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import User from '../interfaces/user';
 import { createUser } from '../services/api.service';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const UserForm = () => {
     const [email,setEmail] = useState<string>("");
     const [nickname, setNickname] = useState<string>("");
@@ -22,6 +22,7 @@ const UserForm = () => {
 
     return(
         <>
+        <h1 style={{left:"43vw"}}>Inscription</h1>
         <form >
             <div>
                 <label htmlFor="email"> Email : </label>
@@ -40,13 +41,11 @@ const UserForm = () => {
                 <input type="password" name="passwordConfirmation" id="pwConfirm" defaultValue={passwordConfirmation} onChange={(e)=>{setPasswordConfirmation(e.target.value)}}/>
             </div>
 
-            <input type="submit" value="Go !" onClick={handleSubmit}/>
+            <input className='submit' type="submit" value="Go !" onClick={handleSubmit}/>
         </form>
         {<p style={{color: 'red'}}>{error.email} </p>}
         {<p style={{color: 'red'}}>{error.nickname} </p>}
         {<p style={{color: 'red'}}>{error.passwordConfirmation} </p>}
-
-        <Link to='/'>Return to connexion</Link>
         </>
     )
 }

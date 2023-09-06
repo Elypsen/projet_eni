@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import { auth } from '../services/api.service';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Connexion = () =>  {
     const [email, setEmail] = useState<string>("");
@@ -24,6 +24,7 @@ const Connexion = () =>  {
 
     return(
         <>
+        <h1 style={{left:"43vw"}}>Connexion</h1>
             <form>
                 <div>
                     <label htmlFor="email"> Email : </label>
@@ -33,11 +34,10 @@ const Connexion = () =>  {
                     <label htmlFor="password"> Password : </label>
                     <input type="password" name="password" id="password" defaultValue={password} onChange={(e) => {setPassword(e.target.value)}} />
                 </div>
-                <input type="submit" value="Connexion" onClick={handleSubmit} />
+                <input className='submit' type="submit" value="Connexion" onClick={handleSubmit} />
             </form>
             {<p style={{color:"red"}}>{error}</p>}
             <br/>
-            <Link to='/create'>No Account Yet?</Link>
         </>
     )
 

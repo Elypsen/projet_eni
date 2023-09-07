@@ -1,5 +1,6 @@
 import User from "./user"
 export default interface Team{
+    uuid?:string,
     name: string,
-    members: User[], 
+    members: User[] | string[], 
 }

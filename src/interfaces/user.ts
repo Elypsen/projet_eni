@@ -1,10 +1,7 @@
 export default interface User {
-  id?: string;
+  uuid?: string;
   email: string;
   nickname: string;
   password?: string;
-  role?: {
-    type: string;
-    default: "user";
-  };
+  role?: string;
 }

@@ -6,11 +6,14 @@ const api = axios.create({
   baseURL: "http://localhost:3000/api",
 });
 
+const wApi = axios.create({
+  baseURL: "http://localhost:3000",
+})
+
 const getErrorMessage = (error: unknown) => {
   if (error instanceof Error) return error.message;
   return String(error);
 };
-
 
 
 export const auth = async (email: string, password:string) => {
@@ -20,15 +23,26 @@ export const auth = async (email: string, password:string) => {
   } catch (err) {
     if(err instanceof AxiosError){
         throw err.response?.data ? err.response?.data.message : null;
+      }
     }
+  };
+  
+  
+  export const getUser= async(id:string) => {
+    try{
+      const user = await wApi.get(`${id}`,);
+      return user.data;
+    }catch(err){
+      console.log("getUser : ", getErrorMessage(err))
+      if(err instanceof AxiosError){
+        throw err.response?.data ? err.response?.data.message : null;
+    }
+    } 
   }
-};
-
-export const getUsers = async () => {
+  export const getUsers = async (token: string) => {
   try {
-    const users = await api.get("/users");
-    console.log(users);
-    return users;
+    const users = await api.get("/users", {headers:{Authorization:`Bearer ${token}`}});
+    return users.data;
   } catch (err) {
     console.log("getUsers : ", getErrorMessage(err));
   }
@@ -46,19 +60,20 @@ export const createUser = async (user: User,confirmPw:string) => {
 export const getTeams = async () => {
   try {
     const teams = await api.get("/teams");
-    console.log(teams);
-    return teams;
+    return teams.data;
   } catch (err) {
     console.log("getTeams : ", getErrorMessage(err));
 
   }
 };
 
-export const createTeam = async (team: Team) => {
+export const createTeam = async (team: Team, token: string) => {
+  console.log(team);
   try {
-    await api.post("/teams", team);
+    await api.post("/teams", team , { headers:{'Authorization': `Bearer ${token}`} });
   } catch (err) {
     console.log("getTeams : ", getErrorMessage(err));
+    throw err instanceof AxiosError ? err.response?.data : null;
   }
 };
 export const checkAttempt = async (num: string,token: string) => {
